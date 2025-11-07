@@ -3,62 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Movve Wallet | Proyección de Crecimiento</title>
-
+  <title>Simulador Movve Wallet</title>
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 
 <body class="dark">
-
-  <!-- LOADER -->
-  <div id="loader">
-    <img src="Selo01.png" class="loader-logo" alt="Movve Wallet">
-    <p>Cargando sistema...</p>
-  </div>
-
-  <!-- LOGO -->
-  <div class="logo-box">
-    <img src="Selo01.png" class="logo" alt="Movve Wallet Logo">
-  </div>
+  <header class="header">
+    <img src="Selo01.png" alt="Movve Wallet" class="logo" />
+    <h1>Simulador de Interés Compuesto</h1>
+  </header>
 
   <main class="container">
+    <section class="inputs">
+      <label>Capital inicial (USD)</label>
+      <input id="capital" type="number" placeholder="Ej: 500" />
 
-    <h1>Simulador de Rendimiento</h1>
+      <label>Interés mensual (%)</label>
+      <input id="interes" type="number" placeholder="Ej: 21" />
 
-    <div class="input-box">
+      <label>Período (meses)</label>
+      <input id="meses" type="number" placeholder="Ej: 12" min="1" />
 
-      <label for="monto">Monto a invertir (USD)</label>
-      <input type="number" id="monto" placeholder="Ej. 100" step="0.01" />
+      <button class="action-btn" onclick="calcularProyeccion()">📈 Calcular</button>
+      <p id="error" class="error"></p>
+    </section>
 
-      <label for="periodo">Período</label>
-      <div class="period-group">
-        <input type="number" id="periodo" placeholder="Ej. 12" min="1" />
-        <select id="unidad">
-          <option value="meses">Meses</option>
-          <option value="años">Años</option>
-        </select>
+    <section id="resultados" class="oculto">
+      <h2>Proyección de crecimiento</h2>
+      <div id="exportable">
+        <div class="tabla-wrapper">
+          <table id="tabla-resultados">
+            <thead>
+              <tr>
+                <th>Mes</th>
+                <th>Capital Inicial</th>
+                <th>Interés</th>
+                <th>Capital Final</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <p id="roi" class="roi"></p>
+
+        <div class="chart-wrapper">
+          <canvas id="grafico"></canvas>
+        </div>
       </div>
 
-      <button class="action-btn" onclick="calcularProyeccion()">
-        🚀 Simular
-      </button>
+      <button class="pdf-btn" onclick="generarPDF()">📄 Exportar PDF</button>
 
-      <p id="mensaje-error" class="error"></p>
-    </div>
-
-    <div id="resultado" class="resultado oculto"></div>
-
-    <div class="chart-wrapper oculto">
-      <canvas id="grafica"></canvas>
-    </div>
-
-    <footer class="footer">
-      Proyección estimada. No representa consejo financiero.
-    </footer>
-
+      <p class="nota">*Cálculo compuesto considerando solo días hábiles (lunes a viernes) y tasa mensual proporcional.</p>
+    </section>
   </main>
+
+  <footer class="footer">
+    <p>© 2025 Movve Wallet — Proyección estimada, no representa consejo financiero.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
