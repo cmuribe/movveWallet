@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Simulador Movve Wallet</title>
+
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Chart.js + jsPDF + html2canvas -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
-
 <body class="dark">
+
   <header class="header">
     <img src="Selo01.png" alt="Movve Wallet" class="logo" />
     <h1>Simulador de Interés Compuesto</h1>
@@ -19,24 +22,29 @@
 
   <main class="container">
     <section class="inputs">
-      <label>Capital inicial (USD)</label>
-      <input id="capital" type="number" placeholder="Ej: 500" />
+      <label for="capital">Capital inicial (USD)</label>
+      <input id="capital" type="number" placeholder="Ej: 50000" value="40000" />
 
-      <label>Interés mensual (%)</label>
-      <input id="interes" type="number" placeholder="Ej: 21" />
+      <label for="interes">Interés mensual (%)</label>
+      <input id="interes" type="number" placeholder="Ej: 15" value="21" />
 
-      <label>Período (meses)</label>
-      <input id="meses" type="number" placeholder="Ej: 12" min="1" />
+      <label for="meses">Período (meses)</label>
+      <input id="meses" type="number" placeholder="Ej: 12" min="1" value="14" />
 
-      <button class="action-btn" onclick="calcularProyeccion()">📈 Calcular</button>
+      <div class="row">
+        <button class="action-btn" onclick="calcularProyeccion()">📈 Calcular</button>
+        <button class="pdf-btn" id="btnPdf" onclick="generarPDF()" title="Generar PDF">📄 Exportar PDF</button>
+      </div>
+
       <p id="error" class="error"></p>
     </section>
 
     <section id="resultados" class="oculto">
       <h2>Proyección de crecimiento</h2>
-      <div id="exportable">
+
+      <div id="exportable" class="exportable">
         <div class="tabla-wrapper">
-          <table id="tabla-resultados">
+          <table id="tabla-resultados" class="tabla-oscura">
             <thead>
               <tr>
                 <th>Mes</th>
@@ -56,9 +64,7 @@
         </div>
       </div>
 
-      <button class="pdf-btn" onclick="generarPDF()">📄 Exportar PDF</button>
-
-      <p class="nota">*Cálculo compuesto considerando solo días hábiles (lunes a viernes) y tasa mensual proporcional.</p>
+      <p class="nota">*Cálculo compuesto considerando solo días hábiles (lunes a viernes) y tasa mensual proporcional. Valores redondeados a enteros.</p>
     </section>
   </main>
 

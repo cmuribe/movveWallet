@@ -1,161 +1,68 @@
-body {
+/* Base - Dark UI */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Poppins', sans-serif; background: #07100a; color: #e9ffee; min-height: 100vh; }
+
+.header { text-align: center; padding: 28px 12px; border-bottom: 2px solid #123a17; }
+.logo { width: 72px; display:block; margin: 0 auto 8px; }
+h1 { color: #1aff3a; font-weight: 600; font-size: 20px; }
+
+.container { max-width: 980px; margin: 30px auto; padding: 18px; }
+
+/* Inputs */
+.inputs { display: grid; gap: 10px; background: #0f1810; border: 1px solid #11451a; padding: 18px; border-radius: 12px; }
+label { color: #86f48a; font-size: 13px; }
+input { background: #0b120b; border: 1px solid #1aff3a; color: #fff; padding: 10px; border-radius: 8px; font-size: 15px; }
+.row { display:flex; gap:10px; margin-top:6px; }
+.action-btn, .pdf-btn {
+  background: linear-gradient(90deg,#1aff3a,#00a13e); border: none; padding: 10px 14px; border-radius: 10px; color:#022; font-weight:700; cursor:pointer;
+}
+.pdf-btn { background: linear-gradient(90deg,#fff,#e9ffe9); color:#022; }
+.action-btn:hover, .pdf-btn:hover { transform: translateY(-3px); }
+
+/* Resultados */
+h2 { color:#1aff3a; text-align:center; margin-top:22px; }
+.tabla-wrapper { margin-top: 18px; overflow-x:auto; }
+.table, table { width:100%; border-collapse: collapse; }
+
+.tabla-oscura thead th {
+  background: #123a17; color: #cfffca; padding: 10px; text-align:center; font-weight:600; border:1px solid #0f3414;
+}
+.tabla-oscura tbody td {
+  background: rgba(18,58,23,0.03); color:#c9fbd0; padding: 10px; text-align:center; border-bottom:1px solid rgba(18,58,23,0.25);
+}
+.tabla-oscura tbody tr:hover td { background: rgba(26,255,58,0.04); }
+
+.roi { margin-top:14px; text-align:center; font-size:17px; color:#9ef49d; font-weight:600; }
+
+/* Chart area */
+.chart-wrapper { width:100%; height:340px; margin-top:20px; }
+
+/* Note & footer */
+.nota { font-size:12px; color:#86f48a; text-align:center; margin-top:12px; }
+.footer { text-align:center; padding:18px; color:#4b7650; font-size:12px; margin-top:18px; }
+
+.oculto { display:none; }
+
+/* ===== Styles for PDF template (light theme) - hidden in UI but used by html2canvas when generating PDF ===== */
+#pdfTemplate {
+  width: 800px;
+  padding: 18px;
+  background: #ffffff;
+  color: #111;
   font-family: 'Poppins', sans-serif;
-  background: #0a0f0a;
-  color: #f0fff0;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
+  box-shadow: none;
 }
+.pdf-header { text-align:center; margin-bottom:14px; }
+.pdf-title { color:#0a5b22; font-size:18px; font-weight:700 }
+.pdf-summary { color:#222; margin-top:6px; font-size:13px; }
+.pdf-table { width:100%; border-collapse:collapse; margin-top:12px; }
+.pdf-table th { background:#e6f7ea; color:#0a5b22; padding:8px; border:1px solid #d0e8d5; text-align:center; }
+.pdf-table td { padding:8px; border:1px solid #e5efe2; text-align:center; color:#111; }
 
-.header {
-  text-align: center;
-  padding: 30px 10px;
-  border-bottom: 1px solid #173e1a;
-}
-
-.logo {
-  width: 70px;
-  display: block;
-  margin: 0 auto 10px;
-}
-
-h1 {
-  color: #1aff3a;
-  font-weight: 600;
-}
-
-.container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
-}
-
-.inputs {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: #101810;
-  border: 1px solid #173e1a;
-  padding: 25px;
-  border-radius: 12px;
-}
-
-label {
-  color: #82f382;
-  font-size: 14px;
-}
-
-input {
-  background: #0f150f;
-  border: 1px solid #1aff3a;
-  border-radius: 8px;
-  padding: 10px;
-  color: #fff;
-  font-size: 16px;
-}
-
-.action-btn {
-  background: linear-gradient(90deg, #1aff3a, #00a83f);
-  border: none;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 16px;
-  color: #000;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-.action-btn:hover {
-  transform: scale(1.05);
-}
-
-.pdf-btn {
-  display: block;
-  margin: 25px auto 0;
-  background: linear-gradient(90deg, #1aff3a, #00a83f);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #000;
-  cursor: pointer;
-}
-.pdf-btn:hover {
-  transform: scale(1.05);
-}
-
-.error {
-  color: #ff5a5a;
-  text-align: center;
-  margin-top: 5px;
-}
-
-h2 {
-  margin-top: 40px;
-  text-align: center;
-  color: #1aff3a;
-}
-
-.tabla-wrapper {
-  overflow-x: auto;
-  margin-top: 20px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th {
-  background: #173e1a;
-  color: #1aff3a;
-  padding: 10px;
-  text-align: center;
-}
-
-td {
-  border-bottom: 1px solid #173e1a;
-  text-align: center;
-  padding: 10px;
-}
-
-tr:hover td {
-  background: #142214;
-}
-
-.roi {
-  margin-top: 15px;
-  text-align: center;
-  font-size: 18px;
-  color: #82f382;
-}
-
-.chart-wrapper {
-  width: 100%;
-  height: 350px;
-  margin-top: 30px;
-}
-
-.nota {
-  font-size: 12px;
-  color: #82f382;
-  text-align: center;
-  margin-top: 15px;
-}
-
-.footer {
-  text-align: center;
-  font-size: 12px;
-  padding: 20px;
-  color: #4e694e;
-}
-
-.oculto {
-  display: none;
-}
-
-@media (max-width: 600px) {
-  .container { padding: 10px; }
-  input, button { font-size: 14px; }
+/* hide pdfTemplate from view */
+#pdfTemplateWrapper { position: fixed; left: -9999px; top: -9999px; width: 820px; z-index: -10; }
+@media (max-width:600px){
+  .container{ padding:12px; }
+  h1{ font-size:18px; }
+  .chart-wrapper{ height:260px; }
 }
